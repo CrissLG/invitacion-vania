@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis 15 Años - Vania</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Tipografías elegantes desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     
+    <!-- Contenedor principal de la invitación -->
     <div class="tarjeta-cuadrada">
         
+        <!-- EL MARCO CERRADO (Solo para la cabecera) -->
         <div class="marco-arco">
             
+            <!-- La bola disco flotando en la esquina del marco -->
             <img src="img/bola-disco.png" alt="Bola Disco" class="adorno-flotante bola-disco">
             
+            <!-- Cabecera -->
             <h1 class="name mt-20">Vania</h1>
             
             <div class="edad-container">
@@ -23,6 +28,7 @@
                 <span class="cursive-text large dorada-text">años</span>
             </div>
 
+            <!-- Fecha -->
             <div class="date-section">
                 <div class="date-box">SÁBADO</div>
                 <div class="date-number">10</div>
@@ -30,17 +36,23 @@
             </div>
             <p class="year">2026</p>
             
-        </div> <div class="contenido-libre">
+        </div> <!-- ¡AQUÍ SE CIERRA EL MARCO! -->
+        
+        <!-- EL RESTO DE LA PÁGINA (Sin marco) -->
+        <div class="contenido-libre">
             
+            <!-- Los demás adornos flotantes -->
             <img src="img/cerezas.png" alt="Cerezas" class="adorno-flotante cerezas">
             <img src="img/copa-globos.png" alt="Globos" class="adorno-flotante copa-globos">
 
+            <!-- Reproductor (Usando un enlace directo y estable para evitar bloqueos) -->
             <div class="music-player mt-20">
                 <p class="cursive-text medium pink-text">Dale play a mi canción favorita</p>
-                <audio id="myAudio" src="img/twice.mp3"></audio>
+                <audio id="myAudio" src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3"></audio>
                 <button id="playBtn" class="play-btn">▶</button>
             </div>
 
+            <!-- Contador -->
             <h3 class="cursive-text medium pink-text mt-30">¡Tan solo faltan!</h3>
             <div class="countdown" id="countdown">
                 <div class="time-box"><span id="days">00</span><p>DÍAS</p></div>
@@ -49,6 +61,7 @@
                 <div class="time-box"><span id="seconds">00</span><p>SEGUNDOS</p></div>
             </div>
 
+            <!-- Única Locación -->
             <div class="locations mt-40">
                 <div class="card">
                     <h3 class="cursive-text medium pink-text">Recepción y Fiesta</h3>
@@ -57,6 +70,7 @@
                 </div>
             </div>
 
+            <!-- Código de Vestimenta -->
             <div class="dress-code mt-40">
                 <h3 class="cursive-text medium pink-text">Código de vestimenta</h3>
                 <p>Formal</p>

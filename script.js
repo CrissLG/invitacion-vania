@@ -26,13 +26,11 @@ const x = setInterval(function() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Formato de 2 dígitos (09, 08, etc.)
     document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
     document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
     document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
     document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
 
-    // Mensaje de fin de cuenta regresiva
     if (distance < 0) {
         clearInterval(x);
         document.getElementById("countdown").innerHTML = "<h3 class='cursive-text medium pink-text'>¡Llegó el gran día!</h3>";
