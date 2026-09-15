@@ -1,159 +1,296 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --vino-letras: #3a3a3a; 
+    --rosa-letras: #d46b85;
+    --rosa-fondo: #fff5f7;
+    --gris-oscuro: #333333;
+    --plata: #a8a8a8;
+    --oro-oscuro: #8b6914; 
 }
 
 body {
-    background-color: #fbe6ec; 
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
+    background: linear-gradient(135deg, #fff0f3 0%, #ffe4ec 50%, #fff7f9 100%);
+    background-size: 200% 200%;
+    animation: espejoBrillo 8s ease infinite;
+    font-family: 'Cinzel', serif;
+    color: var(--gris-oscuro);
     display: flex;
     justify-content: center;
-    padding: 20px 0;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* === LA TARJETA PRINCIPAL === */
-.tarjeta-cuadrada {
+@keyframes espejoBrillo {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.sparkles-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: radial-gradient(#ffffff 2px, transparent 2px), radial-gradient(#ffd6e0 1px, transparent 1px);
+    background-size: 60px 60px, 40px 40px;
+    opacity: 0.7;
+    z-index: -2;
+}
+
+.tarjeta-coquette {
     background-color: #ffffff;
-    max-width: 450px;
+    max-width: 420px; 
     width: 100%;
     position: relative; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     overflow: hidden; 
+    text-align: center;
+    /* Aquí está el marquito de inicio a fin con doble línea elegante */
+    box-shadow: 0 15px 35px rgba(212, 107, 133, 0.25), inset 0 0 0 4px #fff0f3, inset 0 0 0 6px #fff0f3; 
+    border-radius: 16px;
+    margin: 20px auto;
+}
+
+/* REGLA GLOBAL: ELIMINA EL FONDO BLANCO DE TODAS LAS IMÁGENES */
+.tarjeta-coquette img {
+    mix-blend-mode: multiply;
+}
+
+/* ================== ANIMACIONES DE ENTRADA SECUENCIAL (BUILD-UP) ================== */
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes fadeInOnly {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.anim-fondo {
+    animation: fadeInOnly 1.2s ease-out forwards;
+}
+
+.anim-marco {
+    opacity: 0;
+    animation: fadeInScale 1s ease-out 0.4s forwards;
+}
+
+.anim-adornos {
+    opacity: 0;
+    animation: fadeInScale 1s ease-out 0.8s forwards;
+}
+
+.anim-nombre {
+    opacity: 0;
+    animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+
+.anim-mis {
+    opacity: 0;
+    animation: fadeInScale 0.8s ease-out 1.6s forwards;
+}
+
+.anim-numero {
+    opacity: 0;
+    animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 1.9s forwards;
+}
+
+.anim-anos {
+    opacity: 0;
+    animation: fadeInScale 0.8s ease-out 2.1s forwards;
+}
+
+.anim-fecha {
+    opacity: 0;
+    animation: fadeInScale 1s ease-out 2.4s forwards;
+}
+
+/* ================== IMÁGENES DE FONDO DESVANECIDAS ================== */
+.fondo-desvanecido {
+    position: absolute;
+    z-index: -1;
+    opacity: 0.35; 
+    pointer-events: none; 
+}
+.img-fondo-portada    { width: 220px; top: 40%; left: -60px; }
+.img-fondo-frase      { width: 120px; top: -85px; left: -15px; transform: rotate(-15deg); } 
+.img-fondo-contador   { width: 220px; top: -30px; right: -50px; } 
+.img-fondo-familia    { width: 180px; bottom: -20px; right: -40px; } 
+.img-fondo-vestimenta { width: 160px; top: 10%; left: -50px; transform: rotate(10deg); } 
+.img-fondo-rsvp       { width: 160px; top: -20px; right: -30px; } 
+.img-fondo-regalos    { width: 320px; top: 50%; left: -90px; transform: translateY(-50%); } 
+
+.audio-section, .frase-section, .contador-section, .familia-section, 
+.ubicacion-section, .vestimenta-section, .rsvp-section, .regalos-section {
+    position: relative;
+    z-index: 5;
+}
+
+/* ================== SECCIÓN PORTADA ================== */
+.portada {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 5;
+}
+
+.marco-glitter {
+    position: absolute; 
+    top: 15px; left: 15px; 
+    width: calc(100% - 30px); 
+    height: calc(100% - 30px); 
+    z-index: -1;
+    object-fit: fill; 
+    opacity: 0.9; 
+}
+
+/* FLORES DE LA CABECERA */
+.flores-cabecera {
+    position: absolute;
+    top: 22px; 
+    width: 110px; 
+    transform: scaleY(-1); 
+    z-index: 1;
+    opacity: 0.9;
+}
+.flor-izq { left: 22px; }
+.flor-der { right: 22px; transform: scaleY(-1) scaleX(-1); }
+
+.deco-top-right { position: absolute; top: -25px; right: -40px; width: 140px; z-index: 2; }
+.deco-bottom-left { position: absolute; bottom: -10px; left: 5px; width: 80px; z-index: 2; }
+.deco-bottom-right { position: absolute; bottom: -10px; right: 5px; width: 80px; z-index: 2; transform: scaleX(-1); }
+
+.portada-texto {
+    z-index: 5;
+    background: transparent; 
+    padding: 20px 10px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.nombre-portada {
+    font-family: 'Great Vibes', cursive;
+    font-size: 6.5rem;
+    color: #ff9eb5; 
+    text-shadow: 2px 2px 0px #ffffff, 4px 5px 6px rgba(0,0,0,0.3); 
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.edad-visual { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 20px; }
+.mis-txt, .anos-txt { font-family: 'Great Vibes', cursive; font-size: 3rem; color: #d4a373; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+.img-numero-15 { width: 110px; object-fit: contain; }
+
+/* FECHA LINEAL */
+.fecha-lineal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.dia-mes-linea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; 
+}
+.texto-fecha { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--vino-letras); letter-spacing: 1px; }
+.numero-fecha { font-family: 'Cinzel', serif; font-size: 3.2rem; color: var(--vino-letras); line-height: 1; }
+.separador-vertical { width: 2px; height: 40px; background-color: var(--oro-oscuro); }
+.anio-abajo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 6px; color: var(--vino-letras); font-weight: bold; }
+
+/* ================== TIPOGRAFÍAS Y COLORES ================== */
+.titulo-vino { color: #934a5d; font-weight: normal; }
+.cursiva { font-family: 'Great Vibes', cursive; font-size: 2.5rem; line-height: 1.1; }
+.cursiva.grande { font-size: 3.2rem; }
+.texto-rosa-fuerte { color: var(--rosa-letras); font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.1rem; }
+.text-shadow-white { text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+
+.nombre-principal { font-size: 1.2rem; letter-spacing: 2px; color: var(--gris-oscuro); margin-top: 5px; line-height: 1.4; }
+.nombres-secundarios { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gris-oscuro); line-height: 1.5; }
+.texto-chico { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #666; letter-spacing: 1px; line-height: 1.5; font-weight: 500;}
+
+/* ================== FRASE ================== */
+.texto-frase { 
+    font-family: 'Cinzel', serif; 
+    font-size: 0.9rem; 
+    font-style: italic; 
+    color: var(--gris-oscuro); 
+    padding: 0 25px; 
+    line-height: 1.7; 
     text-align: center;
 }
 
-/* === EL MARCO CERRADO (Solo cabecera) === */
-.marco-arco {
-    border: 4px solid #d896a6;
-    border-radius: 200px 200px 8px 8px; 
-    padding: 60px 10px 30px 10px;
-    position: relative;
-    margin: 15px 15px 10px 15px; 
-}
+/* REPRODUCTOR */
+.marco-lazo-audio { position: relative; padding: 20px; }
+.marco-lazo-audio .lazo-deco { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 120px; opacity: 0.6; z-index: -1; }
+.linea-progreso { width: 70%; height: 3px; background-color: #ffd6e0; margin: 0 auto; border-radius: 5px; position: relative; }
+.linea-progreso::after { content: ''; position: absolute; top: -4px; left: 20%; width: 11px; height: 11px; background-color: var(--rosa-letras); border-radius: 50%; }
+.controles { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 15px; color: #ffb3c6; font-size: 1.2rem; }
+.play-btn-pink { background: #ffb3c6; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.3rem; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255, 179, 198, 0.4); }
 
-/* === EL RESTO DEL CONTENIDO LIBRE === */
-.contenido-libre {
-    padding: 10px 15px 40px 15px;
-    position: relative;
-}
+/* CONTADOR */
+.nube-bg { position: relative; padding: 40px 10px; display: flex; justify-content: center; align-items: center; min-height: 140px; }
+.nube-img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: auto; z-index: -1; opacity: 0.9; }
+.countdown { display: flex; justify-content: center; align-items: flex-start; gap: 8px; }
+.time-box { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
+.time-box span { font-size: 2.8rem; color: #ffffff; font-family: 'Cinzel', serif; font-weight: 600; text-shadow: 1px 2px 5px rgba(0,0,0,0.35), 0px 0px 8px rgba(255,255,255,0.4); line-height: 1; }
+.time-box p { font-size: 0.65rem; color: #ffffff; font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); margin-top: 8px; }
+.separador-tiempo { font-size: 2.5rem; color: #ffffff; font-family: 'Cinzel', serif; font-weight: 600; line-height: 1; margin-top: -3px; text-shadow: 1px 2px 5px rgba(0,0,0,0.35); }
 
-/* === ADORNOS FLOTANTES === */
-.adorno-flotante {
-    position: absolute;
-    z-index: 10;
-}
-.bola-disco {
-    top: -15px;
-    left: -20px;
-    width: 140px;
-}
-.cerezas {
-    top: 50px; 
-    left: -15px;
-    width: 100px;
-}
-.copa-globos {
-    bottom: 50px;
-    right: -15px;
-    width: 120px;
-}
+/* MARCO FAMILIA */
+.marco-marquito { position: relative; padding: 95px 45px 85px 45px; width: 95%; margin: 0 auto; }
+.img-marquito { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; z-index: -1; }
+.contenido-marquito { z-index: 2; position: relative; }
 
-/* === TIPOGRAFÍAS Y NOMBRES === */
-.cursive-text { font-family: 'Great Vibes', cursive; font-weight: normal; }
-.medium { font-size: 2.2rem; }
-.large { font-size: 3rem; }
-.pink-text { color: #d896a6; } 
-.dorada-text { color: #c49a45; }
+/* BOTONES GRADIENTE */
+.btn-gradient { display: inline-block; background: linear-gradient(to right, #d48a9c, #b36377); color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 1.5px; box-shadow: 0 4px 10px rgba(179, 99, 119, 0.3); }
 
-.name {
-    font-family: 'Great Vibes', cursive;
-    font-size: 5.5rem;
-    color: #e28ca0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    line-height: 1;
-    margin-bottom: 10px;
-}
+/* VESTIMENTA */
+.img-dresscode { max-width: 140px; margin: 0 auto; display: block; }
+.capsula-colores { background: #dfa8b8; border-radius: 40px; display: inline-flex; padding: 8px 20px; gap: 15px; }
+.color-dot { width: 35px; height: 50px; border-radius: 20px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.bg-rosa { background-color: #ffe4e1; }
+.bg-plata { background: linear-gradient(135deg, #e0e0e0, #a8a8a8); }
 
-.edad-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-.numero-15 {
-    font-size: 4.5rem;
-    font-family: serif;
-    color: #d896a6;
-}
+/* RSVP MARCO ONDAS */
+.marco-ondulado { position: relative; padding: 60px 30px; width: 95%; margin: 0 auto; }
+.img-marco-ondas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; z-index: -1; }
+.contenido-rsvp { z-index: 2; position: relative; }
 
-/* === SECCIÓN DE LA FECHA === */
-.date-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 20px auto 5px auto;
-    border-top: 1.5px solid #c49a45; 
-    border-bottom: 1.5px solid #c49a45; 
-    padding: 15px 0;
-    width: 80%;
-}
-.date-number { font-size: 4rem; color: #333; line-height: 1; font-weight: normal; }
-.date-box { font-size: 0.95rem; letter-spacing: 2px; color: #555; text-transform: uppercase; }
-.year { font-size: 1.3rem; letter-spacing: 6px; margin-top: 10px; color: #333; }
+/* ÍCONOS Y BLOQUE REGALOS */
+.img-fiesta { max-width: 80px; margin: 0 auto 10px auto; display: block; }
+.img-confirmacion { max-width: 65px; margin: 0 auto 10px auto; display: block; }
 
-/* === UTILIDADES Y ESPACIADOS === */
-.mt-20 { margin-top: 20px; }
-.mt-30 { margin-top: 30px; }
-.mt-40 { margin-top: 40px; }
+.bloque-regalos { margin-left: 20%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+.img-regalo { width: 55px; object-fit: contain; }
+.texto-regalos { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--gris-oscuro); line-height: 1.6; font-weight: bold; text-align: center; }
 
-/* === BOTÓN DE PLAY Y CONTADOR === */
-.play-btn {
-    background: #f7a8b8; color: white; border: none; border-radius: 50%;
-    width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer; margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(226, 140, 160, 0.4);
-    transition: 0.3s;
-}
-.play-btn:hover { background: #d896a6; }
+/* MISC */
+.mt-10 { margin-top: 10px; } .mt-15 { margin-top: 15px; } .mt-20 { margin-top: 20px; } .mt-30 { margin-top: 30px; } .mt-40 { margin-top: 40px; } .mt-50 { margin-top: 50px; } .mb-10 { margin-bottom: 10px; } .mb-20 { margin-bottom: 20px; } .mb-50 { margin-bottom: 50px; }
 
-.countdown { display: flex; justify-content: space-around; margin-top: 15px; }
-.time-box span { font-size: 1.8rem; font-weight: bold; color: #333; }
-.time-box p { font-size: 0.6rem; letter-spacing: 1px; color: #777; }
+/* ANIMACIONES DE LAS SECCIONES INFERIORES AL HACER SCROLL */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* === BOTONES UBICACIÓN Y VESTIMENTA === */
-.btn-ubicacion {
-    display: inline-block;
-    background-color: #fff;
-    color: #d896a6;
-    padding: 10px 25px;
-    border: 1px solid #d896a6;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    margin-top: 15px;
-    transition: 0.3s;
-    font-weight: bold;
+/* Forzar que cualquier ícono o SVG dentro de la tarjeta se pinte de rosita */
+.tarjeta-coquette i,
+.tarjeta-coquette svg,
+.tarjeta-coquette path {
+    color: #d46b85 !important;
+    fill: #d46b85 !important;
 }
-.btn-ubicacion:hover {
-    background-color: #d896a6;
-    color: #fff;
+/* ESTILOS PARA LOS NUEVOS ÍCONOS VECTORIALES DEL REPRODUCTOR */
+.svg-icon {
+    width: 22px;
+    height: 22px;
+    fill: var(--rosa-letras);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
 }
-
-.color-swatches {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 15px 0;
+.svg-icon:hover {
+    opacity: 0.7;
 }
-.swatch {
-    width: 35px;
-    height: 50px; 
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.rosa-pastel { background-color: #ffd1dc; }
-.dorado { background-color: #d4af37; }
-.small-text { font-size: 0.75rem; color: #666; margin-top: 5px; }

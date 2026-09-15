@@ -1,4 +1,4 @@
-// Reproductor de audio
+// REPRODUCTOR
 const audio = document.getElementById("myAudio");
 const playBtn = document.getElementById("playBtn");
 let isPlaying = false;
@@ -14,8 +14,8 @@ playBtn.addEventListener("click", () => {
     isPlaying = !isPlaying;
 });
 
-// Cuenta regresiva apuntando al 10 de Octubre de 2026 (a las 8:00 PM)
-const countDownDate = new Date("Oct 10, 2026 20:00:00").getTime();
+// CUENTA REGRESIVA
+const countDownDate = new Date("Oct 10, 2026 18:30:00").getTime();
 
 const x = setInterval(function() {
     const now = new Date().getTime();
@@ -33,6 +33,19 @@ const x = setInterval(function() {
 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("countdown").innerHTML = "<h3 class='cursive-text medium pink-text'>¡Llegó el gran día!</h3>";
+        document.getElementById("countdown").innerHTML = "<h3 class='titulo-vino cursiva'>¡Llegó el gran día!</h3>";
     }
 }, 1000);
+
+// ANIMACIONES SCROLL
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -30px 0px" };
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) { return; } 
+        else { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+}, appearOptions);
+
+faders.forEach(fader => { appearOnScroll.observe(fader); });

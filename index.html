@@ -3,87 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis 15 Años - Vania</title>
+    <title>Mis 15 Años - Vania Camila</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Tipografías elegantes desde Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <!-- Contenedor principal de la invitación -->
-    <div class="tarjeta-cuadrada">
-        
-        <!-- EL MARCO CERRADO (Solo para la cabecera) -->
-        <div class="marco-arco">
-            
-            <!-- La bola disco flotando en la esquina del marco -->
-            <img src="img/bola-disco.png" alt="Bola Disco" class="adorno-flotante bola-disco">
-            
-            <!-- Cabecera -->
-            <h1 class="name mt-20">Vania</h1>
-            
-            <div class="edad-container">
-                <span class="cursive-text large pink-text">mis</span>
-                <span class="numero-15">15</span>
-                <span class="cursive-text large dorada-text">años</span>
-            </div>
 
-            <!-- Fecha -->
-            <div class="date-section">
-                <div class="date-box">SÁBADO</div>
-                <div class="date-number">10</div>
-                <div class="date-box">OCTUBRE</div>
-            </div>
-            <p class="year">2026</p>
-            
-        </div> <!-- ¡AQUÍ SE CIERRA EL MARCO! -->
+    <div class="sparkles-bg anim-fondo"></div>
+
+    <div class="tarjeta-coquette">
         
-        <!-- EL RESTO DE LA PÁGINA (Sin marco) -->
+        <section class="portada">
+            <img src="IMG/marco-glitter.png" alt="Marco" class="marco-glitter anim-marco">
+            
+
+            <img src="IMG/bola-disco.png" alt="Disco y Labios" class="deco-top-right anim-adornos">
+            
+            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-left anim-adornos">
+            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-right anim-adornos">
+
+            <img src="IMG/corazones.png" alt="Corazones fondo" class="fondo-desvanecido img-fondo-portada anim-adornos">
+
+            <div class="portada-texto">
+                <h1 class="nombre-portada anim-nombre">Vania</h1>
+                
+                <div class="edad-visual mt-10">
+                    <span class="mis-txt anim-mis">mis</span>
+                    <img src="IMG/numero-15.png" alt="15" class="img-numero-15 anim-numero">
+                    <span class="anos-txt anim-anos">años</span>
+                </div>
+
+                <div class="fecha-lineal mt-30 anim-fecha">
+                    <div class="dia-mes-linea">
+                        <span class="texto-fecha">MARTES</span>
+                        <div class="separador-vertical"></div>
+                        <span class="numero-fecha">10</span>
+                        <div class="separador-vertical"></div>
+                        <span class="texto-fecha">OCTUBRE</span>
+                    </div>
+                    <div class="anio-abajo">2 0 2 6</div>
+                </div>
+            </div>
+        </section>
+
         <div class="contenido-libre">
-            
-            <!-- Los demás adornos flotantes -->
-            <img src="img/cerezas.png" alt="Cerezas" class="adorno-flotante cerezas">
-            <img src="img/copa-globos.png" alt="Globos" class="adorno-flotante copa-globos">
 
-            <!-- Reproductor (Apuntando a tu archivo local comprimido) -->
-            <div class="music-player mt-20">
-                <p class="cursive-text medium pink-text">Dale play a mi canción favorita</p>
-                <audio id="myAudio" src="IMG/cancion.mp3"></audio>
-                <button id="playBtn" class="play-btn">▶</button>
-            </div>
-
-            <!-- Contador -->
-            <h3 class="cursive-text medium pink-text mt-30">¡Tan solo faltan!</h3>
-            <div class="countdown" id="countdown">
-                <div class="time-box"><span id="days">00</span><p>DÍAS</p></div>
-                <div class="time-box"><span id="hours">00</span><p>HORAS</p></div>
-                <div class="time-box"><span id="minutes">00</span><p>MINUTOS</p></div>
-                <div class="time-box"><span id="seconds">00</span><p>SEGUNDOS</p></div>
-            </div>
-
-            <!-- Única Locación -->
-            <div class="locations mt-40">
-                <div class="card">
-                    <h3 class="cursive-text medium pink-text">Recepción y Fiesta</h3>
-                    <p>TRANSMEL CARGO S.C.R.L.<br>8:00 P.M.</p>
-                    <a href="https://www.google.com/maps/place/TRANSMEL+CARGO+S.C.R.L./@-12.0571963,-76.9620666,254m/data=!3m1!1e3!4m6!3m5!1s0x9105c68a54d84787:0x13660c983bef54cb!8m2!3d-12.0568829!4d-76.9614729!16s%2Fg%2F12hkwqcwx?entry=ttu&g_ep=EgoyMDI2MDkwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-ubicacion">VER UBICACIÓN</a>
+            <!-- SECCIÓN 2: REPRODUCTOR MUSICAL -->
+            <section class="audio-section fade-in mt-30">
+                <div class="marco-lazo-audio">
+                    <img src="IMG/lazo-chico.png" alt="Lazo" class="lazo-deco">
+                    <p class="titulo-vino cursiva">Dale play a mi canción favorita</p>
                 </div>
-            </div>
-
-            <!-- Código de Vestimenta -->
-            <div class="dress-code mt-40">
-                <h3 class="cursive-text medium pink-text">Código de vestimenta</h3>
-                <p>Formal</p>
-                <div class="color-swatches">
-                    <div class="swatch rosa-pastel"></div>
-                    <div class="swatch dorado"></div>
+                
+                <div class="reproductor-visual mt-20">
+                    <div class="linea-progreso"></div>
+                    <div class="controles">
+                        <!-- SHUFFLE LIMPIO Y PERFECTO -->
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41M14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.42 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                        <span>⏮</span>
+                        <button id="playBtn" class="play-btn-pink">▶</button>
+                        <span>⏭</span>
+                        <!-- REPEAT LIMPIO Y PERFECTO -->
+                        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                    </div>
                 </div>
-                <p class="small-text">Colores reservados para la Quinceañera.<br>Favor de evitarlos.</p>
-            </div>
-            
+                </div>
+                <audio id="myAudio" src="IMG/cancion.mp3" loop></audio>
+            </section>
+
+            <section class="frase-section fade-in mt-40">
+                <img src="IMG/fresitas.png" alt="Fresitas fondo" class="fondo-desvanecido img-fondo-frase">
+                <p class="texto-frase">"Cada año de mi vida ha sido como un pétalo que, poco a poco, ha ido formando la flor que hoy soy. Quince pétalos que guardan risas, recuerdos y mucho cariño. Hoy esa flor está completa y quiero que tú la veas florecer. Acompáñame a celebrar mis quince años, porque tu presencia será el perfume más dulce de esta fecha tan especial."</p>
+            </section>
+
+            <section class="contador-section fade-in mt-50">
+                <img src="IMG/corazones.png" alt="Corazones fondo" class="fondo-desvanecido img-fondo-contador">
+                <h3 class="titulo-vino cursiva grande mb-20 text-shadow-white">¡Tan solo faltan!</h3>
+                <div class="nube-bg">
+                    <img src="IMG/nube-rosa.png" alt="Nube Rosa" class="nube-img">
+                    <div class="countdown" id="countdown">
+                        <div class="time-box"><span id="days">00</span><p>DÍAS</p></div>
+                        <span class="separador-tiempo">:</span>
+                        <div class="time-box"><span id="hours">00</span><p>HORAS</p></div>
+                        <span class="separador-tiempo">:</span>
+                        <div class="time-box"><span id="minutes">00</span><p>MINUTOS</p></div>
+                        <span class="separador-tiempo">:</span>
+                        <div class="time-box"><span id="seconds">00</span><p>SEGUNDOS</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="familia-section fade-in mt-50">
+                <div class="marco-marquito">
+                    <img src="IMG/marquito.png" alt="Marco familiar" class="img-marquito">
+                    <img src="IMG/globos.png" alt="Globos fondo" class="fondo-desvanecido img-fondo-familia">
+                    <div class="contenido-marquito">
+                        <h2 class="titulo-vino cursiva grande">Quinceañera</h2>
+                        <p class="nombre-principal">VANIA CAMILA<br>CARO HUAMANI</p>
+                        
+                        <h3 class="titulo-vino cursiva mt-30">Mis Padres</h3>
+                        <p class="nombres-secundarios">MARUJA HUAMANI ESLAVA<br>Y<br>DAN MEYER CARO HUAMANLAZO</p>
+                        
+                        <p class="texto-chico mt-20">ME ACOMPAÑAN EN ESTE<br>GRAN DÍA, JUNTO A</p>
+                        
+                        <h3 class="titulo-vino cursiva mt-20">Mi Madrina</h3>
+                        <p class="nombres-secundarios">JESSICA DE LA CRUZ</p>
+                        <p class="texto-chico mt-10">QUIEN HAS DECIDIDO SER<br>PARTE DE ESTA NUEVA ETAPA<br>EN MI VIDA.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ubicacion-section fade-in mt-50">
+                <img src="IMG/fiesta.png" alt="Fiesta" class="img-fiesta">
+                <h3 class="titulo-vino cursiva">Recepción y Fiesta</h3>
+                <p class="nombres-secundarios">TRANSMEL CARGO S.C.R.L.<br>6:30 P.M.</p>
+                <a href="https://www.google.com/maps/place/TRANSMEL+CARGO+S.C.R.L./@-12.0571963,-76.9620666,254m/data=!3m1!1e3!4m6!3m5!1s0x9105c68a54d84787:0x13660c983bef54cb!8m2!3d-12.0568829!4d-76.9614729!16s%2Fg%2F12hkwqcwx?entry=ttu" target="_blank" class="btn-gradient mt-15">VER UBICACIÓN</a>
+            </section>
+
+            <section class="vestimenta-section fade-in mt-50">
+                <img src="IMG/lazo-chico.png" alt="Lazo fondo" class="fondo-desvanecido img-fondo-vestimenta">
+                <h3 class="titulo-vino cursiva">Código de vestimenta</h3>
+                <p class="nombres-secundarios mb-20">Formal</p>
+                <img src="IMG/pareja-formal.png" alt="Dress Code" class="img-dresscode">
+                
+                <h3 class="titulo-vino cursiva mt-30">Colores reservados para<br>la Quinceañera</h3>
+                <p class="nombres-secundarios mt-10">Rosa Pastel y Plateado</p>
+                <div class="capsula-colores mt-15">
+                    <div class="color-dot bg-rosa"></div>
+                    <div class="color-dot bg-plata"></div>
+                </div>
+                <p class="texto-chico mt-10">Favor de evitarlos.</p>
+            </section>
+
+            <section class="rsvp-section fade-in mt-50">
+                <img src="IMG/globos.png" alt="Globos fondo" class="fondo-desvanecido img-fondo-rsvp">
+                <h3 class="titulo-vino cursiva grande">Confirmar Asistencia</h3>
+                <div class="marco-ondulado mt-20">
+                    <img src="IMG/marco-ondas.png" alt="Marco ondas" class="img-marco-ondas">
+                    <div class="contenido-rsvp">
+                        <img src="IMG/confirmacion.png" alt="Confirmación" class="img-confirmacion">
+                        <p class="texto-rosa-fuerte mt-10">¡Me encantará contar<br>con tu presencia!</p>
+                        <p class="texto-chico mt-10">¿Me ayudas confirmando<br>tu asistencia?</p>
+                        <a href="https://wa.me/51923022456?text=Hola,%20confirmo%20mi%20asistencia" target="_blank" class="btn-gradient mt-15">CONFIRMAR</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="regalos-section fade-in mt-50 mb-50">
+                <img src="IMG/damita.png" alt="Damita fondo" class="fondo-desvanecido img-fondo-regalos">
+                <div class="bloque-regalos">
+                    <img src="IMG/regalo.png" alt="Regalo" class="img-regalo">
+                    <p class="texto-regalos mt-15">COMPARTIR ESTE DÍA<br>CONTIGO ES EL REGALO MÁS<br>ESPECIAL.<br>PERO SI DESEAS AGREGAR UN<br>DETALLE A ESTA<br>CELEBRACIÓN, PUEDES<br>HACERLO A TRAVÉS DE UNA<br>LLUVIA DE SOBRES Y REGALOS.<br>¡GRACIAS!</p>
+                </div>
+            </section>
+
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
