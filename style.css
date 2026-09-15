@@ -311,11 +311,4 @@ body {
     opacity: 0.7;
 }
 
-/* AJUSTE PARA QUE LAS LETRAS NO CHOQUEN CON EL MARCO EN CELULARES */
-@media (max-width: 480px) {
-    .tarjeta-coquette {
-        /* Solo dejamos el respiro a los lados para empujar el texto al centro */
-        padding-left: 35px !important;
-        padding-right: 35px !important;
-    }
-}
+
