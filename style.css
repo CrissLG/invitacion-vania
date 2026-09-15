@@ -314,13 +314,8 @@ body {
 /* AJUSTE PARA QUE LAS LETRAS NO CHOQUEN CON EL MARCO EN CELULARES */
 @media (max-width: 480px) {
     .tarjeta-coquette {
-        /* Le damos un respiro a los lados para empujar el texto al centro */
+        /* Solo dejamos el respiro a los lados para empujar el texto al centro */
         padding-left: 35px !important;
         padding-right: 35px !important;
-    }
-    
-    /* Achicamos un pelito los títulos grandes y nombres para que encajen perfecto */
-    .titulo-vino, .grande, h1, h2, h3 {
-        font-size: 90% !important; 
     }
 }
