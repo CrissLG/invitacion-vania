@@ -9,7 +9,8 @@
     
     <!-- ESTILOS INTERNOS PARA EL SOBRE 3D Y EL EFECTO "ARMÁNDOSE" -->
     <style>
-        body.bloqueado { overflow: hidden; }
+        /* Aseguramos que mientras esté el sobre, no se pueda scrollear ni por error */
+        body.bloqueado { overflow: hidden; height: 100vh; touch-action: none; }
         
         #pantalla-sobre {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -45,8 +46,8 @@
             width: 290px; height: 170px; background: #fff; border-radius: 6px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
             justify-content: center; align-items: center;
-            z-index: 3; /* Va sobre la espalda, pero debajo del bolsillo */
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s; /* Retraso para que espere a la solapa */
+            z-index: 3; 
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s; 
         }
         .carta-interna h3 { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #d46b85; margin: 0; }
         .carta-interna p { font-family: 'Cinzel', serif; font-size: 0.8rem; color: #555; letter-spacing: 2px; margin-top: 5px; }
@@ -82,12 +83,11 @@
         }
         
         /* ===== ANIMACIÓN AL ABRIR ===== */
-        .abierto .solapa-arriba { transform: rotateX(180deg); z-index: 2; /* Se esconde detrás de la carta */ }
+        .abierto .solapa-arriba { transform: rotateX(180deg); z-index: 2; }
         .abierto .sello-sobre { opacity: 0; }
         .abierto .carta-interna { transform: translateX(-50%) translateY(-110px); }
 
         /* ===== EFECTO "ARMÁNDOSE" DE LA TARJETA ===== */
-        /* Estado inicial: todo invisible */
         body:not(.iniciar-animacion) .tarjeta-coquette { opacity: 0; }
         
         body.iniciar-animacion .tarjeta-coquette { 
@@ -95,14 +95,12 @@
         }
         @keyframes aparecerFondo { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Adornos que hacen "Pop" (escala de 0 a 1) */
         .armar-adornos { opacity: 0; transform: scale(0); }
         body.iniciar-animacion .armar-adornos { 
             animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; 
         }
         @keyframes popIn { to { opacity: 1; transform: scale(1); } }
 
-        /* Secciones que se deslizan desde abajo */
         .armar-seccion { opacity: 0; transform: translateY(40px); }
         body.iniciar-animacion .armar-seccion { 
             animation: slideUp 1s ease forwards; 
@@ -111,6 +109,9 @@
     </style>
 </head>
 <body class="bloqueado">
+
+    <!-- AUDIO EFECTO DE SONIDO DEL SOBRE -->
+    <audio id="audioSobre" src="IMG/sobre-sonido.mp3"></audio>
 
     <!-- PANTALLA DEL SOBRE INTERACTIVO -->
     <div id="pantalla-sobre">
@@ -134,7 +135,6 @@
     <div class="tarjeta-coquette">
         
         <section class="portada">
-            <!-- Aplicando las clases de armado con retrasos estratégicos -->
             <img src="IMG/marco-glitter.png" alt="Marco" class="marco-glitter anim-marco armar-adornos" style="animation-delay: 0.2s;">
             <img src="IMG/bola-disco.png" alt="Disco y Labios" class="deco-top-right anim-adornos armar-adornos" style="animation-delay: 0.4s;">
             <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-left anim-adornos armar-adornos" style="animation-delay: 0.5s;">
@@ -280,37 +280,51 @@
         </div>
     </div>
 
-    <!-- SCRIPT PARA EL CINE: Animaciones encadenadas -->
+    <!-- SCRIPT PARA ASEGURAR SCROLL, EFECTO DE SONIDO Y ANIMACIONES -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // MAGIA 1: Forzamos a la página a estar en la parte superior siempre al recargar
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
             const pantallaSobre = document.getElementById("pantalla-sobre");
             const contenedorSobre = document.getElementById("contenedor-sobre");
             const miAudio = document.getElementById("myAudio");
+            const audioSobre = document.getElementById("audioSobre");
             const botonPlay = document.getElementById("playBtn");
 
             if(contenedorSobre && pantallaSobre) {
                 contenedorSobre.addEventListener("click", () => {
-                    // 1. Abre el sobre, gira la solapa y saca la carta deslizando
+                    
+                    // Asegurarnos de nuevo por si acaso el usuario metió dedo
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+
+                    // Reproducir efecto de sonido de sobre
+                    if(audioSobre) {
+                        audioSobre.currentTime = 0;
+                        audioSobre.play().catch(e => console.log("Sonido del sobre bloqueado"));
+                    }
+
+                    // Inicia animación del sobre y la carta
                     contenedorSobre.classList.add("abierto");
                     
-                    // 2. Play automático a la rica música
+                    // Play a la canción de la quinceañera
                     if(miAudio) {
                         miAudio.play().then(() => {
                             if(botonPlay) botonPlay.innerHTML = "⏸";
-                        }).catch(error => console.log("Autoplay manual requerido"));
+                        }).catch(error => console.log("Música bloqueada, se requerirá play manual"));
                     }
 
-                    // 3. Cadena de tiempo: Espera que la carta salga bien, luego desvanece
+                    // Espera animación de la carta
                     setTimeout(() => {
                         pantallaSobre.style.opacity = "0";
                         
-                        // 4. Se va el sobre y arranca el efecto "ARMÁNDOSE" de la tarjeta
                         setTimeout(() => {
                             pantallaSobre.style.display = "none";
-                            document.body.classList.remove("bloqueado");
-                            document.body.classList.add("iniciar-animacion");
-                        }, 1000); // 1 segundo desvaneciendo
-                    }, 1400); // 1.4 segundos esperando la animación de la carta
+                            document.body.classList.remove("bloqueado"); // Permite hacer scroll de nuevo
+                            document.body.classList.add("iniciar-animacion"); // Dispara el efecto armándose
+                        }, 1000); 
+                    }, 1400); 
                 });
             }
         });
