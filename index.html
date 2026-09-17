@@ -101,10 +101,8 @@
             <section class="familia-section fade-in mt-50">
                 <div class="marco-marquito">
                     <img src="IMG/marquito.png" alt="Marco familiar" class="img-marquito">
-                    <!-- CLÁSICA (Derecha) Y NUEVA (Izquierda) -->
-                    <img src="IMG/globos.png" alt="Globos fondo" class="fondo-desvanecido img-fondo-familia">
-                    <img src="IMG/muffing.png" alt="Muffing" class="fondo-desvanecido" style="width: 120px; top: 10px; left: -30px; transform: rotate(-10deg);">
                     
+                    <!-- LIMPÍO: Se quitaron las imágenes de fondo para que el marco resalte -->
                     <div class="contenido-marquito">
                         <h2 class="titulo-vino cursiva grande">Quinceañera</h2>
                         <p class="nombre-principal">VANIA CAMILA<br>CARO HUAMANI</p>
@@ -116,15 +114,13 @@
                         
                         <h3 class="titulo-vino cursiva mt-20">Mi Madrina</h3>
                         <p class="nombres-secundarios">JESSICA DE LA CRUZ</p>
-                        <p class="texto-chico mt-10">QUIEN HA DECIDIDO SER<br>PARTE DE ESTA NUEVA ETAPA<br>EN MI VIDA.</p>
+                        <p class="texto-chico mt-10">QUIEN HAS DECIDIDO SER<br>PARTE DE ESTA NUEVA ETAPA<br>EN MI VIDA.</p>
                     </div>
                 </div>
             </section>
 
             <section class="ubicacion-section fade-in mt-50">
-                <!-- NUEVO ADORNO CORAZÓN A LA IZQUIERDA -->
                 <img src="IMG/adorno_cora.png" alt="Adornos Corazones" class="fondo-desvanecido" style="width: 110px; top: 15px; left: -25px; transform: rotate(-15deg);">
-                <!-- MUFFING A LA DERECHA -->
                 <img src="IMG/muffing.png" alt="Muffin fondo" class="fondo-desvanecido" style="width: 125px; bottom: -50px; right: -15px; transform: rotate(15deg);">
                 
                 <img src="IMG/fiesta.png" alt="Fiesta" class="img-fiesta">
@@ -134,7 +130,6 @@
             </section>
 
             <section class="vestimenta-section fade-in mt-50">
-                <!-- CLÁSICA (Izquierda) Y NUEVA (Derecha) -->
                 <img src="IMG/lazo-chico.png" alt="Lazo fondo" class="fondo-desvanecido img-fondo-vestimenta">
                 <img src="IMG/postre.png" alt="Postre fondo" class="fondo-desvanecido" style="width: 140px; bottom: 20px; right: -40px;">
                 
@@ -161,14 +156,25 @@
             </section>
 
             <section class="rsvp-section fade-in mt-50">
-                <!-- CLÁSICA (Derecha) Y NUEVA (Izquierda) -->
-                <img src="IMG/globos.png" alt="Globos fondo" class="fondo-desvanecido img-fondo-rsvp">
-                <img src="IMG/fuego_art.png" alt="Fuegos artificiales" class="fondo-desvanecido" style="width: 140px; bottom: -10px; left: -30px;">
-                
-                <h3 class="titulo-vino cursiva grande">Confirmar Asistencia</h3>
-                <div class="marco-ondulado mt-20">
-                    <img src="IMG/marco-ondas.png" alt="Marco ondas" class="img-marco-ondas">
-                    <div class="contenido-rsvp">
+                <!-- ACÁ SE CERRÓ EL MARCO: Le pusimos un max-width para apretarlo un poco y metimos las 4 esquinas -->
+                <div style="position: relative; max-width: 310px; margin: 0 auto; padding: 40px 15px;">
+                    
+                    <!-- ESQUINA ARRIBA IZQUIERDA -->
+                    <img src="IMG/marco_2.png" alt="Marco top left" style="position: absolute; top: 0; left: 0; width: 110px; z-index: -1; mix-blend-mode: multiply;">
+                    
+                    <!-- ESQUINA ARRIBA DERECHA (Volteada horizontalmente) -->
+                    <img src="IMG/marco_2.png" alt="Marco top right" style="position: absolute; top: 0; right: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleX(-1);">
+                    
+                    <!-- ESQUINA ABAJO IZQUIERDA (Volteada verticalmente) -->
+                    <img src="IMG/marco_2.png" alt="Marco bottom left" style="position: absolute; bottom: 0; left: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleY(-1);">
+                    
+                    <!-- ESQUINA ABAJO DERECHA (Volteada en ambos ejes) -->
+                    <img src="IMG/marco_2.png" alt="Marco bottom right" style="position: absolute; bottom: 0; right: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleX(-1) scaleY(-1);">
+                    
+                    <!-- CONTENIDO DE CONFIRMACIÓN -->
+                    <div class="contenido-rsvp" style="position: relative; z-index: 2;">
+                        <h3 class="titulo-vino cursiva grande mb-15">Confirmar Asistencia</h3>
+                        
                         <img src="IMG/confirmacion.png" alt="Confirmación" class="img-confirmacion">
                         <p class="texto-rosa-fuerte mt-10">¡Me encantará contar<br>con tu presencia!</p>
                         <p class="texto-chico mt-10">¿Me ayudas confirmando<br>tu asistencia?</p>
@@ -177,9 +183,8 @@
                     </div>
                 </div>
             </section>
-
+            <br><br>
             <section class="regalos-section fade-in mt-50 mb-50">
-                <!-- CLÁSICA (Izquierda) Y NUEVA (Derecha) -->
                 <img src="IMG/damita.png" alt="Damita fondo" class="fondo-desvanecido img-fondo-regalos">
                 <img src="IMG/muffing.png" alt="Muffing" class="fondo-desvanecido" style="width: 120px; top: -10px; right: -20px; transform: rotate(15deg);">
                 
