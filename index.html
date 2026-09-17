@@ -6,33 +6,148 @@
     <title>Mis 15 Años - Vania Camila</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- ESTILOS INTERNOS PARA EL SOBRE 3D Y EL EFECTO "ARMÁNDOSE" -->
+    <style>
+        body.bloqueado { overflow: hidden; }
+        
+        #pantalla-sobre {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe4ec 50%, #fff7f9 100%);
+            z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1s ease;
+        }
+        
+        .texto-sobre { 
+            font-family: 'Great Vibes', cursive; font-size: 4rem; 
+            color: #d46b85; margin-bottom: 30px; 
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8); 
+        }
+        
+        /* ESTRUCTURA DEL SOBRE 3D */
+        .contenedor-sobre { 
+            position: relative; width: 320px; height: 210px; 
+            cursor: pointer; transition: transform 0.3s ease; 
+        }
+        .contenedor-sobre:hover { transform: scale(1.03); }
+        
+        /* 1. Fondo del sobre */
+        .sobre-espalda {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #f0b9c9; border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(212, 107, 133, 0.4);
+            z-index: 1;
+        }
+
+        /* 2. La carta (escondida adentro) */
+        .carta-interna {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            width: 290px; height: 170px; background: #fff; border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
+            justify-content: center; align-items: center;
+            z-index: 3; /* Va sobre la espalda, pero debajo del bolsillo */
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s; /* Retraso para que espere a la solapa */
+        }
+        .carta-interna h3 { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #d46b85; margin: 0; }
+        .carta-interna p { font-family: 'Cinzel', serif; font-size: 0.8rem; color: #555; letter-spacing: 2px; margin-top: 5px; }
+
+        /* 3. El bolsillo de adelante */
+        .sobre-frente {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 4; pointer-events: none;
+        }
+        .sobre-frente::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 160px solid #f9d5df; border-right: 160px solid #f9d5df;
+            border-bottom: 115px solid #f7c8d4; border-top: 95px solid transparent;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        /* 4. Solapa superior */
+        .solapa-arriba {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 160px solid transparent; border-right: 160px solid transparent;
+            border-top: 120px solid #eebbcc; 
+            z-index: 5; transform-origin: top; 
+            transition: transform 0.6s ease-in-out, z-index 0s 0.3s;
+        }
+        
+        /* 5. Sello */
+        .sello-sobre {
+            position: absolute; top: 120px; left: 50%; transform: translate(-50%, -50%);
+            width: 55px; height: 55px; background: linear-gradient(135deg, #d46b85, #b36377);
+            border-radius: 50%; z-index: 6; display: flex; justify-content: center; align-items: center;
+            color: white; font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 1px;
+            border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: opacity 0.3s ease;
+        }
+        
+        /* ===== ANIMACIÓN AL ABRIR ===== */
+        .abierto .solapa-arriba { transform: rotateX(180deg); z-index: 2; /* Se esconde detrás de la carta */ }
+        .abierto .sello-sobre { opacity: 0; }
+        .abierto .carta-interna { transform: translateX(-50%) translateY(-110px); }
+
+        /* ===== EFECTO "ARMÁNDOSE" DE LA TARJETA ===== */
+        /* Estado inicial: todo invisible */
+        body:not(.iniciar-animacion) .tarjeta-coquette { opacity: 0; }
+        
+        body.iniciar-animacion .tarjeta-coquette { 
+            animation: aparecerFondo 1s ease forwards; 
+        }
+        @keyframes aparecerFondo { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Adornos que hacen "Pop" (escala de 0 a 1) */
+        .armar-adornos { opacity: 0; transform: scale(0); }
+        body.iniciar-animacion .armar-adornos { 
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; 
+        }
+        @keyframes popIn { to { opacity: 1; transform: scale(1); } }
+
+        /* Secciones que se deslizan desde abajo */
+        .armar-seccion { opacity: 0; transform: translateY(40px); }
+        body.iniciar-animacion .armar-seccion { 
+            animation: slideUp 1s ease forwards; 
+        }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-<body>
+<body class="bloqueado">
+
+    <!-- PANTALLA DEL SOBRE INTERACTIVO -->
+    <div id="pantalla-sobre">
+        <h2 class="texto-sobre armar-adornos" style="opacity:1; transform:scale(1);">Para ti...</h2>
+        <div class="contenedor-sobre" id="contenedor-sobre">
+            <div class="sobre-espalda"></div>
+            
+            <div class="carta-interna">
+                <h3>Vania Camila</h3>
+                <p>MIS 15 AÑOS</p>
+            </div>
+            
+            <div class="sobre-frente"></div>
+            <div class="solapa-arriba"></div>
+            <div class="sello-sobre"><span>Abrir</span></div>
+        </div>
+    </div>
 
     <div class="sparkles-bg anim-fondo"></div>
 
     <div class="tarjeta-coquette">
         
         <section class="portada">
-            <img src="IMG/marco-glitter.png" alt="Marco" class="marco-glitter anim-marco">
-            
-            <img src="IMG/bola-disco.png" alt="Disco y Labios" class="deco-top-right anim-adornos">
-            
-            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-left anim-adornos">
-            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-right anim-adornos">
+            <!-- Aplicando las clases de armado con retrasos estratégicos -->
+            <img src="IMG/marco-glitter.png" alt="Marco" class="marco-glitter anim-marco armar-adornos" style="animation-delay: 0.2s;">
+            <img src="IMG/bola-disco.png" alt="Disco y Labios" class="deco-top-right anim-adornos armar-adornos" style="animation-delay: 0.4s;">
+            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-left anim-adornos armar-adornos" style="animation-delay: 0.5s;">
+            <img src="IMG/fresitas.png" alt="Fresitas" class="deco-bottom-right anim-adornos armar-adornos" style="animation-delay: 0.6s;">
+            <img src="IMG/corazones.png" alt="Corazones fondo" class="fondo-desvanecido img-fondo-portada anim-adornos armar-adornos" style="animation-delay: 0.3s;">
 
-            <!-- IMAGEN CLÁSICA -->
-            <img src="IMG/corazones.png" alt="Corazones fondo" class="fondo-desvanecido img-fondo-portada anim-adornos">
-
-            <div class="portada-texto">
+            <div class="portada-texto armar-seccion" style="animation-delay: 0.8s;">
                 <h1 class="nombre-portada anim-nombre">Vania</h1>
-                
                 <div class="edad-visual mt-10">
                     <span class="mis-txt anim-mis">mis</span>
                     <img src="IMG/numero-15.png" alt="15" class="img-numero-15 anim-numero">
                     <span class="anos-txt anim-anos">años</span>
                 </div>
-
                 <div class="fecha-lineal mt-30 anim-fecha">
                     <div class="dia-mes-linea">
                         <span class="texto-fecha">SÁBADO</span>
@@ -48,41 +163,33 @@
 
         <div class="contenido-libre">
 
-            <!-- SECCIÓN 2: REPRODUCTOR MUSICAL -->
-            <section class="audio-section fade-in mt-30">
+            <section class="audio-section mt-30 armar-seccion" style="animation-delay: 1s;">
                 <div class="marco-lazo-audio">
                     <img src="IMG/lazo-chico.png" alt="Lazo" class="lazo-deco">
                     <p class="titulo-vino cursiva">Dale play a mi canción favorita</p>
                 </div>
-                
                 <div class="reproductor-visual mt-20">
                     <div class="linea-progreso"></div>
                     <div class="controles">
-                        <!-- SHUFFLE LIMPIO Y PERFECTO -->
                         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41M14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.42 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
                         <span>⏮</span>
                         <button id="playBtn" class="play-btn-pink">▶</button>
                         <span>⏭</span>
-                        <!-- REPEAT LIMPIO Y PERFECTO -->
                         <svg class="svg-icon" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
                     </div>
                 </div>
                 <audio id="myAudio" src="IMG/cancion.mp3" loop></audio>
             </section>
 
-            <section class="frase-section fade-in mt-40">
-                <!-- CLÁSICA (Izquierda) Y NUEVA (Derecha) -->
+            <section class="frase-section mt-40 armar-seccion" style="animation-delay: 1.2s;">
                 <img src="IMG/fresitas.png" alt="Fresitas fondo" class="fondo-desvanecido img-fondo-frase">
                 <img src="IMG/postre.png" alt="Postre fondo" class="fondo-desvanecido" style="width: 130px; bottom: -30px; right: -20px; transform: rotate(10deg);">
-                
                 <p class="texto-frase">"Cada año de mi vida ha sido como un pétalo que, poco a poco, ha ido formando la flor que hoy soy. Quince pétalos que guardan risas, recuerdos y mucho cariño. Hoy esa flor está completa y quiero que tú la veas florecer. Acompáñame a celebrar mis quince años, porque tu presencia será el perfume más dulce de esta fecha tan especial."</p>
             </section>
 
             <section class="contador-section fade-in mt-50">
-                <!-- CLÁSICA (Derecha) Y NUEVA (Izquierda arriba) -->
                 <img src="IMG/corazones.png" alt="Corazones fondo" class="fondo-desvanecido img-fondo-contador">
                 <img src="IMG/fuego_art.png" alt="Fuegos artificiales" class="fondo-desvanecido" style="width: 120px; top: -20px; left: -20px; transform: rotate(-10deg);">
-                
                 <h3 class="titulo-vino cursiva grande mb-20 text-shadow-white">¡Tan solo faltan!</h3>
                 <div class="nube-bg">
                     <img src="IMG/nube-rosa.png" alt="Nube Rosa" class="nube-img">
@@ -101,17 +208,12 @@
             <section class="familia-section fade-in mt-50">
                 <div class="marco-marquito">
                     <img src="IMG/marquito.png" alt="Marco familiar" class="img-marquito">
-                    
-                    <!-- LIMPÍO: Se quitaron las imágenes de fondo para que el marco resalte -->
                     <div class="contenido-marquito">
                         <h2 class="titulo-vino cursiva grande">Quinceañera</h2>
                         <p class="nombre-principal">VANIA CAMILA<br>CARO HUAMANI</p>
-                        
                         <h3 class="titulo-vino cursiva mt-30">Mis Padres</h3>
                         <p class="nombres-secundarios">MARUJA HUAMANI ESLAVA<br>Y<br>DAN MEYER CARO HUAMANLAZO</p>
-                        
                         <p class="texto-chico mt-20">ME ACOMPAÑAN EN ESTE<br>GRAN DÍA, JUNTO A</p>
-                        
                         <h3 class="titulo-vino cursiva mt-20">Mi Madrina</h3>
                         <p class="nombres-secundarios">JESSICA DE LA CRUZ</p>
                         <p class="texto-chico mt-10">QUIEN HA DECIDIDO SER<br>PARTE DE ESTA NUEVA ETAPA<br>EN MI VIDA.</p>
@@ -122,7 +224,6 @@
             <section class="ubicacion-section fade-in mt-50">
                 <img src="IMG/adorno_cora.png" alt="Adornos Corazones" class="fondo-desvanecido" style="width: 110px; top: 15px; left: -25px; transform: rotate(-15deg);">
                 <img src="IMG/muffing.png" alt="Muffin fondo" class="fondo-desvanecido" style="width: 125px; bottom: -50px; right: -15px; transform: rotate(15deg);">
-                
                 <img src="IMG/fiesta.png" alt="Fiesta" class="img-fiesta">
                 <h3 class="titulo-vino cursiva">Recepción y Fiesta</h3>
                 <p class="nombres-secundarios">TRANSMEL CARGO S.C.R.L.<br>6:30 P.M.</p>
@@ -132,20 +233,14 @@
             <section class="vestimenta-section fade-in mt-50">
                 <img src="IMG/lazo-chico.png" alt="Lazo fondo" class="fondo-desvanecido img-fondo-vestimenta">
                 <img src="IMG/postre.png" alt="Postre fondo" class="fondo-desvanecido" style="width: 140px; bottom: 20px; right: -40px;">
-                
-                <!-- CORONA -->
                 <img src="IMG/corona.png" alt="Corona" style="mix-blend-mode: multiply; max-width: 65px; display: block; margin: 0 auto 10px auto;">
-
-                <!-- MARCO CON TEXTO DE VESTIMENTA DENTRO -->
                 <div style="position: relative; max-width: 290px; margin: 0 auto;">
                     <img src="IMG/marco_vestimenta.png" alt="Marco Vestimenta" style="width: 100%; display: block;">
-                    
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; text-align: center;">
                         <h3 class="titulo-vino cursiva" style="font-size: 2.1rem; margin-bottom: 5px;">Vestimenta:</h3>
                         <p class="nombres-secundarios" style="text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.8rem; line-height: 1.4;">Como te sientas cómodo<br>y elegante</p>
                     </div>
                 </div>
-
                 <h3 class="titulo-vino cursiva mt-40">Colores reservados para<br>la Quinceañera</h3>
                 <p class="nombres-secundarios mt-10">Rosa Pastel y Plateado</p>
                 <div class="capsula-colores mt-15">
@@ -156,35 +251,23 @@
             </section>
 
             <section class="rsvp-section fade-in mt-50">
-                <!-- ACÁ SE CERRÓ EL MARCO: Le pusimos un max-width para apretarlo un poco y metimos las 4 esquinas -->
                 <div style="position: relative; max-width: 310px; margin: 0 auto; padding: 40px 15px;">
-                    
-                    <!-- ESQUINA ARRIBA IZQUIERDA -->
                     <img src="IMG/marco_2.png" alt="Marco top left" style="position: absolute; top: 0; left: 0; width: 110px; z-index: -1; mix-blend-mode: multiply;">
-                    
-                    <!-- ESQUINA ARRIBA DERECHA (Volteada horizontalmente) -->
                     <img src="IMG/marco_2.png" alt="Marco top right" style="position: absolute; top: 0; right: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleX(-1);">
-                    
-                    <!-- ESQUINA ABAJO IZQUIERDA (Volteada verticalmente) -->
                     <img src="IMG/marco_2.png" alt="Marco bottom left" style="position: absolute; bottom: 0; left: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleY(-1);">
-                    
-                    <!-- ESQUINA ABAJO DERECHA (Volteada en ambos ejes) -->
                     <img src="IMG/marco_2.png" alt="Marco bottom right" style="position: absolute; bottom: 0; right: 0; width: 110px; z-index: -1; mix-blend-mode: multiply; transform: scaleX(-1) scaleY(-1);">
                     
-                    <!-- CONTENIDO DE CONFIRMACIÓN -->
                     <div class="contenido-rsvp" style="position: relative; z-index: 2;">
                         <h3 class="titulo-vino cursiva grande mb-15">Confirmar Asistencia</h3>
-                        
                         <img src="IMG/confirmacion.png" alt="Confirmación" class="img-confirmacion">
                         <p class="texto-rosa-fuerte mt-10">¡Me encantará contar<br>con tu presencia!</p>
                         <p class="texto-chico mt-10">¿Me ayudas confirmando<br>tu asistencia?</p>
-                        
                         <a href="https://wa.me/51923022456?text=Hola%20Maruja,%20confirmo%20mi%20asistencia%20para%20el%20quinceañero%20de%20Vania%20para%20este%20sábado%2010%20de%20Octubre.%20Mi%20nombre%20es:%20" target="_blank" class="btn-gradient mt-15">CONFIRMAR</a>
                     </div>
                 </div>
             </section>
-            <br><br>
-            <section class="regalos-section fade-in mt-50 mb-50">
+
+            <section class="regalos-section fade-in mb-50" style="margin-top: 90px;">
                 <img src="IMG/damita.png" alt="Damita fondo" class="fondo-desvanecido img-fondo-regalos">
                 <img src="IMG/muffing.png" alt="Muffing" class="fondo-desvanecido" style="width: 120px; top: -10px; right: -20px; transform: rotate(15deg);">
                 
@@ -197,6 +280,42 @@
         </div>
     </div>
 
+    <!-- SCRIPT PARA EL CINE: Animaciones encadenadas -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pantallaSobre = document.getElementById("pantalla-sobre");
+            const contenedorSobre = document.getElementById("contenedor-sobre");
+            const miAudio = document.getElementById("myAudio");
+            const botonPlay = document.getElementById("playBtn");
+
+            if(contenedorSobre && pantallaSobre) {
+                contenedorSobre.addEventListener("click", () => {
+                    // 1. Abre el sobre, gira la solapa y saca la carta deslizando
+                    contenedorSobre.classList.add("abierto");
+                    
+                    // 2. Play automático a la rica música
+                    if(miAudio) {
+                        miAudio.play().then(() => {
+                            if(botonPlay) botonPlay.innerHTML = "⏸";
+                        }).catch(error => console.log("Autoplay manual requerido"));
+                    }
+
+                    // 3. Cadena de tiempo: Espera que la carta salga bien, luego desvanece
+                    setTimeout(() => {
+                        pantallaSobre.style.opacity = "0";
+                        
+                        // 4. Se va el sobre y arranca el efecto "ARMÁNDOSE" de la tarjeta
+                        setTimeout(() => {
+                            pantallaSobre.style.display = "none";
+                            document.body.classList.remove("bloqueado");
+                            document.body.classList.add("iniciar-animacion");
+                        }, 1000); // 1 segundo desvaneciendo
+                    }, 1400); // 1.4 segundos esperando la animación de la carta
+                });
+            }
+        });
+    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>
