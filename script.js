@@ -15,7 +15,7 @@ playBtn.addEventListener("click", () => {
 });
 
 // CUENTA REGRESIVA
-const countDownDate = new Date("Oct 10, 2026 18:30:00").getTime();
+const countDownDate = new Date("Oct 10, 2026 19:00:00").getTime();
 
 const x = setInterval(function() {
     const now = new Date().getTime();
